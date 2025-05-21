@@ -1,0 +1,72 @@
+/* styles/settings.module.css */
+.settingsContainer {
+  padding: 20px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.profileForm {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.formGroup {
+  margin-bottom: 15px;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.formGroup input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.updateButton {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.updateButton:hover {
+  background-color: #0056b3;
+}
+
+.success {
+  color: green;
+  margin-bottom: 10px;
+}
+
+.error {
+  color: red;
+  margin-bottom: 10px;
+}
+
+.backToProfile {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.backToProfile a {
+  color: blue;
+  text-decoration: none;
+}
+
+.backToProfile a:hover {
+  text-decoration: underline;
+}
+
+.profilePicturePreview {
+  margin-top: 10px;
+}

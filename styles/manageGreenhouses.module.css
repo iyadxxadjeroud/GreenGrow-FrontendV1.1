@@ -1,0 +1,125 @@
+/* styles/manageGreenhouses.module.css */
+
+.greenhouseList {
+  list-style: none;
+  padding: 0;
+}
+
+.greenhouseItem {
+  border: 1px solid #ddd;
+  margin-bottom: 15px;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.greenhouseItem h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.greenhouseItem button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-right: 10px;
+}
+
+.greenhouseItem button:hover {
+  background-color: #0056b3;
+}
+
+.greenhouseItem button:last-child {
+  margin-right: 0;
+}
+
+.greenhouseItem input[type="text"] {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 10px;
+  font-size: 14px;
+}
+
+.thresholdsSection {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+.thresholdsSection h4 {
+  color: #555;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.thresholdGroup {
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  background-color: white;
+}
+
+.thresholdGroup h5 {
+  color: #777;
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.thresholdInputGroup {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.thresholdInputGroup label {
+  margin-right: 10px;
+  font-size: 14px;
+  color: #333;
+  width: 120px;
+  text-align: right;
+}
+
+.thresholdInputGroup input[type="number"] {
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 80px;
+  margin-right: 10px;
+}
+
+.thresholdsSection button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.thresholdsSection button:hover {
+  background-color: #1e7e34;
+}
+
+.backToProfile {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.backToProfile a {
+  color: blue;
+  text-decoration: none;
+}
+
+.backToProfile a:hover {
+  text-decoration: underline;
+}
