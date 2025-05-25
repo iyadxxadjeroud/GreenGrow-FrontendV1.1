@@ -1,5 +1,6 @@
 // components/DashboardLayout.js
 
+import ContactForm from './ContactForm';
 import React, { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -22,7 +23,6 @@ function DashboardLayout({ children }) {
 
   useEffect(() => {
     const accessToken = localStorage.getItem('access_token');
-
     if (!accessToken) {
       console.log('DashboardLayout: No access token found, redirecting to login.');
       router.push('/login');
@@ -105,6 +105,13 @@ function DashboardLayout({ children }) {
     };
   }, [profileMenuRef]);
 
+  useEffect(() => {
+    if (selectedGreenhouseId && router.pathname === '/dashboard' && !router.query.greenhouse_id) {
+      router.push(`/dashboard?greenhouse_id=${selectedGreenhouseId}`);
+    }
+  }, [selectedGreenhouseId, router.pathname, router.query.greenhouse_id]);
+
+
   const handleGreenhouseChange = (event) => {
     const newGreenhouseId = event.target.value;
     setSelectedGreenhouseId(newGreenhouseId);
@@ -180,20 +187,79 @@ function DashboardLayout({ children }) {
     );
   }
 
-  // If no greenhouses are found, redirect to add greenhouse page or show message
+  // If no greenhouses are found, show support page content
   if (greenhouses.length === 0 && !loadingInitialData && router.pathname !== '/dashboard/greenhouses' && router.pathname !== '/dashboard/greenhouses/add') {
-      return (
-        <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-6">
-          <div className="bg-white p-8 rounded-lg shadow-md text-center">
-            <h2 className="text-xl font-semibold text-gray-800 mb-4">No Greenhouses Found</h2>
-            <p className="text-gray-600 mb-6">You need to add at least one greenhouse to use the dashboard features.</p>
-            <Link href="/dashboard/greenhouses/add" className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
-              Add New Greenhouse
-            </Link>
+    return (
+      <div className="min-h-screen bg-gray-100">
+        <header className="bg-white shadow-md p-4 flex justify-between items-center">
+          <div className="text-2xl font-bold text-green-500">🌱 GreenGrow</div>
+          <div className="relative">
+            <button onClick={toggleProfileMenu} className="w-8 h-8 rounded-full bg-gray-400 flex items-center justify-center text-white font-semibold focus:outline-none overflow-hidden">
+              {getProfilePictureSrc(user) !== '/images/default-avatar.png' ? (
+                <Image
+                  src={getProfilePictureSrc(user)}
+                  alt="Profile"
+                  width={32}
+                  height={32}
+                  className="w-full h-full object-cover"
+                  unoptimized={true}
+                  onError={(e) => { e.target.src = '/images/default-avatar.png'; }}
+                />
+              ) : (
+                user && user.username ? user.username.charAt(0).toUpperCase() : 'U'
+              )}
+            </button>
+            {isProfileMenuOpen && (
+              <div ref={profileMenuRef} className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-xl z-10">
+                <Link 
+                  href="/dashboard/profile"
+                  className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+                  onClick={() => setIsProfileMenuOpen(false)}
+                >
+                  Profile & Settings
+                </Link>
+                <button onClick={handleLogout} className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-100 focus:outline-none">
+                  Logout
+                </button>
+              </div>
+            )}
+          </div>
+        </header>
+
+        <div className="container mx-auto px-4 py-8">
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6">Welcome to GreenGrow!</h2>
+          
+          <div className="bg-white shadow rounded-lg p-6 mb-8">
+            <h3 className="text-xl font-semibold text-gray-700 mb-4">Getting Started</h3>
+            <p className="text-gray-600 mb-4">We noticed you haven&apos;t set up any greenhouses yet. To help you get started, our support team is here to assist you!</p>
+          </div>
+
+          <div className="bg-white shadow rounded-lg p-6 mb-8">
+            <h3 className="text-xl font-semibold text-gray-700 mb-4">Contact Support</h3>
+            <div className="text-gray-600 space-y-2 mb-4">
+              <p>Please fill out the form below, and we&apos;ll help you set up your first greenhouse:</p>
+              <p>Email: <a href="mailto:support@yourgreengrowapp.com" className="text-blue-600 hover:underline">support@yourgreengrowapp.com</a></p>
+              <p>Phone: +213 540-991-022 (Available Saturday-Thursday, 9 AM - 5 PM Local Time)</p>
+            </div>
+
+            <div className="mt-6">
+              <h4 className="font-semibold text-gray-800 mb-2">Send us a message directly:</h4>
+              <ContactForm />
+            </div>
+          </div>
+
+          <div className="bg-white shadow rounded-lg p-6">
+            <h3 className="text-xl font-semibold text-gray-700 mb-4">Other Useful Resources</h3>
+            <ul className="list-disc list-inside text-gray-600 space-y-2">
+              <li>Check out our getting started guide</li>
+              <li>Watch our greenhouse setup tutorial</li>
+              <li>Browse our knowledge base</li>
+            </ul>
           </div>
         </div>
-      );
-    }
+      </div>
+    );
+  }
 
 
   return (
@@ -287,16 +353,10 @@ function DashboardLayout({ children }) {
               {isProfileMenuOpen && (
                 <div ref={profileMenuRef} className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-xl z-10">
                   <Link href="/dashboard/profile" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">
-                    Profile
-                  </Link>
-                  <Link href="/dashboard/settings" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">
-                    Settings
+                    Profile & Settings
                   </Link>
                   <Link href="/dashboard/greenhouses" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">
                     Manage Greenhouses
-                  </Link>
-                  <Link href="/dashboard/change-password" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">
-                    Change Password
                   </Link>
                   <button onClick={handleLogout} className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-100 focus:outline-none">
                     Logout

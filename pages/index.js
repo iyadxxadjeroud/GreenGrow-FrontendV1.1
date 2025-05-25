@@ -12,9 +12,9 @@ import React from 'react';
        <Link href="/login" className="px-4 py-2 text-green-600 border border-green-600 rounded hover:bg-green-600 hover:text-white">
         Login
        </Link>
-       <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">
+       <Link href="/start" className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">
         Start with us
-       </button>
+      </Link>
       </div>
      </div>
     </nav>
@@ -33,9 +33,9 @@ import React from 'react';
       </p>
 
       {/* Start with us Button (After Description, Left) */}
-      <button className="bg-white text-blue-500 font-bold py-3 px-6 rounded-md hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">
-       Start with us
-      </button>
+      <Link href="/start" className="bg-white text-blue-500 font-bold py-3 px-6 rounded-md hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">
+        Start with us
+      </Link>
      </div>
     </main>
 
